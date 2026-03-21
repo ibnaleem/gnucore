@@ -40,6 +40,9 @@ int main(int argc, char *argv[]) {
 
     print_directory_contents(".");
 
+  } else if (argc == 2) {
+    char *path = argv[1];
+    print_directory_contents(path);
   } else {
 
     for (int i = 1; i < argc; i++) {
@@ -48,9 +51,9 @@ int main(int argc, char *argv[]) {
       if (!is_directory(path)) {
         printf("ls: cannot access '%s': not a directory\n", path);
       } else {
+        printf("\n");
         printf("%s:\n", path);
         print_directory_contents(path);
-        printf("\n");
       }
     }
 
