@@ -24,14 +24,20 @@ int print_directory_contents(char *path) {
   
   struct dirent *entry = readdir(curr_directory_pointer);
 
-  while (entry != NULL) {
+  while ((entry = readdir(curr_directory_pointer)) != NULL) {
 
-    if (is_directory(entry->d_name)) {
-      printf("%s/\n", entry->d_name);
-    } else {
-      printf("%s\n", entry->d_name);
+    char *filename = entry->d_name;
+
+    if (filename[0] == '.') {
+      continue;
     }
-    entry = readdir(curr_directory_pointer);
+
+    if (is_directory(filename)) {
+      printf("%s/\n", filename);
+    } else {
+      printf("%s\n", filename);
+    }
+  
   }
 
   closedir(curr_directory_pointer);
