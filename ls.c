@@ -2,6 +2,7 @@
 #include <dirent.h>
 #include <stdbool.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 bool is_directory(char *path) {
 
@@ -12,6 +13,37 @@ bool is_directory(char *path) {
   return S_ISDIR(st.st_mode);
 }
 
+int print_directory_contents(char *path) {
+    
+  DIR *curr_directory_pointer = opendir(path);
+
+  if (curr_directory_pointer == NULL) {
+    printf("ls: cannot access '%s': permission denied\n", path);
+    return 1;
+  }
+  
+  struct dirent *entry = readdir(curr_directory_pointer);
+
+  while (entry != NULL) {
+    printf("%s\n", entry->d_name);
+    entry = readdir(curr_directory_pointer);
+  }
+
+  closedir(curr_directory_pointer);
+
+  return 0;
+}
+
 int main(int argc, char *argv[]) {
+
+  if (argc == 1) {
+
+    print_directory_contents(".");
+
+  } else {
+
+  }
+
+  return 0;
 
 }
