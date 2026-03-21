@@ -25,7 +25,12 @@ int print_directory_contents(char *path) {
   struct dirent *entry = readdir(curr_directory_pointer);
 
   while (entry != NULL) {
-    printf("%s\n", entry->d_name);
+
+    if (is_directory(entry->d_name)) {
+      printf("%s/\n", entry->d_name);
+    } else {
+      printf("%s\n", entry->d_name);
+    }
     entry = readdir(curr_directory_pointer);
   }
 
