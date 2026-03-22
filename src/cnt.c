@@ -33,3 +33,44 @@ int count_lines_in_file(char *path) {
   
   return lines;
 }
+
+int main(int argc, char *argv[]) {
+
+  if (argc == 1) {
+    // print num files and num directories
+  } else if (argc == 2) {
+
+    char *path = argv[1];
+
+    if (is_directory(path)) {
+      // print num files nad num directories
+    } else {
+      int filelines = count_lines_in_file(path);
+
+      printf("%d %s\n", filelines, path);
+
+      return 0;
+
+    } // else-block (if is_directory(path))
+
+  } else {
+
+    for (int i=1; i < argc; i++) {
+      char *path = argv[i];
+      
+      if (is_directory(path)) {
+      // print num files nad num directories
+      } else {
+
+        int filelines = count_lines_in_file(path);
+
+        printf("%d %s\n", filelines, path);
+
+
+      } // else-block (if is_directory(path))
+
+    } // for-loop
+
+  } // else-block (if argc > 2)
+
+} // main
