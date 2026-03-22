@@ -119,8 +119,8 @@ int main(int argc, char *argv[]) {
 
         int filelines = count_lines_in_file(path);
 
+        printf("\n");
         printf("%d %s\n", filelines, path);
-
 
       } // else-block (if is_directory(path))
 
