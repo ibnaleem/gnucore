@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <sys/stat.h>
@@ -17,7 +18,14 @@ int read_file(char *path) {
   FILE* fptr = fopen(path, "r");
 
   if (fptr == NULL) {
-    printf("cat: unable to open '%s': permission denied\n", path);
+   if (errno == ENOENT) {
+    printf("cat: unable to open '%s': no such file\n", path);
+    return 1;
+   } else if (errno == EACCES) {
+   printf("cat: unable to open '%s': permission denied\n", path);
+  } else {
+    printf(strerror(errno));
+  }
     return 1;
   }
 
